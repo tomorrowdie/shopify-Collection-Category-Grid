@@ -1,0 +1,163 @@
+<div class="collection-category-grid">
+  <div class="category-grid-wrapper">
+    {%- for block in section.blocks -%}
+      <div class="category-block" {{ block.shopify_attributes }}>
+        {%- if block.settings.collection_url != blank -%}
+          <a href="{{ block.settings.collection_url }}" class="category-link">
+        {%- endif -%}
+
+          {%- if block.settings.image != blank -%}
+            <div class="category-image">
+              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.heading }}
+            </div>
+          {%- else -%}
+            <div class="category-image category-placeholder">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.heading != blank -%}
+            <div class="category-heading">
+              <h3>{{ block.settings.heading }}</h3>
+            </div>
+          {%- endif -%}
+
+        {%- if block.settings.collection_url != blank -%}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .collection-category-grid {
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .category-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .category-grid-wrapper {
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    }
+  }
+
+  .category-block {
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+    transition: transform 0.3s ease;
+  }
+
+  .category-block:hover {
+    transform: translateY(-5px);
+  }
+
+  .category-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .category-image {
+    width: 100%;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+  }
+
+  .category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .category-placeholder {
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category-heading {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    text-align: center;
+  }
+
+  .category-heading h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Category Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 5,
+      "label": "Number of columns on desktop"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Category Heading",
+          "default": "Category Name"
+        },
+        {
+          "type": "url",
+          "id": "collection_url",
+          "label": "Collection Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Category Grid",
+      "blocks": [
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
