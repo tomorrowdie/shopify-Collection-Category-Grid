@@ -1,7 +1,4 @@
 # shopify-Collection-Category-Grid
-A customizable, responsive category grid section for Shopify collection pages. Easy installation with Liquid code - no apps required.
-# Shopify Collection Category Grid
-
 A simple, customizable category grid section for Shopify collection pages. Add image-based navigation to your collections with this easy-to-install Liquid section.
 
 ## Features
