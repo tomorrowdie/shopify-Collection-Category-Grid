@@ -1,8 +1,22 @@
-# shopify-Collection-Category-Grid
+# Shopify Collection Category Grid
+
+**Version 2.0** - Now with horizontal scroll option!
+
 A simple, customizable category grid section for Shopify collection pages. Add image-based navigation to your collections with this easy-to-install Liquid section.
+
+![Demo](https://via.placeholder.com/1200x400/4A90E2/FFFFFF?text=Collection+Category+Grid)
+
+## ✨ What's New in v2.0
+
+- 🎉 **Horizontal Scroll Layout** - Swipeable carousel like Adidas!
+- 📱 **Mobile Layout Choice** - Choose between grid or horizontal scroll
+- 🎯 **Smooth Scrolling** - Native mobile gestures, no JavaScript needed
+- ⚡ **Better UX** - Perfect for 4+ category blocks
 
 ## Features
 
+- ✅ **Two Mobile Layouts**: Grid or Horizontal Scroll
+- ✅ **Swipeable Carousel**: Like Adidas (pure CSS, no JS!)
 - ✅ Fully responsive (mobile, tablet, desktop)
 - ✅ Easy customization through Shopify Theme Editor
 - ✅ Unlimited category blocks
@@ -33,8 +47,11 @@ A simple, customizable category grid section for Shopify collection pages. Add i
 ### Step 3: Customize
 
 1. Click on the section to open settings
-2. Set the number of columns (2-6)
-3. Click **Add block** to add category tiles
+2. **Choose Mobile Layout**:
+   - **Grid** (2 columns, wraps to rows)
+   - **Horizontal Scroll** (swipeable, like Adidas) ⭐
+3. Set the number of columns for desktop (2-6)
+4. Click **Add block** to add category tiles
 4. For each block:
    - Upload an image
    - Add a heading (e.g., "MEN", "WOMEN", "KIDS")
