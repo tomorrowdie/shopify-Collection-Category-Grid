@@ -1,235 +1,499 @@
-# 🎉 Version 2.0 Release Summary
+{% comment %}
+  Collection Category Grid v2.5
+  Added: Optional section heading with enable/disable toggle
+  
+  New Features:
+  - Section heading (optional)
+  - Subtext/description (optional)
+  - Heading size options (Small, Medium, Large)
+  - Text alignment (Left, Center, Right)
+  - Easy enable/disable toggle
+{% endcomment %}
 
-## What's New?
+<style>
+  /* Section Heading Styles */
+  .collection-grid-header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
 
-**Horizontal Scroll Layout** - Just like Adidas! 🚀
+  .collection-grid-header.align-left {
+    text-align: left;
+  }
 
-You can now choose between two mobile layouts:
-1. **Grid** (2 columns, wraps to rows)
-2. **Horizontal Scroll** (swipeable carousel) ⭐ NEW!
+  .collection-grid-header.align-center {
+    text-align: center;
+  }
 
----
+  .collection-grid-header.align-right {
+    text-align: right;
+  }
 
-## 📦 Files Included (11 files)
+  .collection-grid-header h2.size-small {
+    font-size: 28px;
+    margin: 0 0 10px 0;
+  }
 
-### Core:
-✅ **collection-category-grid.liquid** (5.0KB) - Updated with horizontal scroll
+  .collection-grid-header h2.size-medium {
+    font-size: 36px;
+    margin: 0 0 12px 0;
+  }
 
-### Documentation:
-✅ **README.md** (3.8KB) - Updated to v2.0
-✅ **CHANGELOG.md** (3.5KB) - Complete version history
-✅ **HORIZONTAL_SCROLL.md** (5.1KB) - Full horizontal scroll guide
-✅ **V2_QUICKSTART.md** (2.0KB) - Quick start for v2.0
-✅ **MOBILE_COMPARISON.md** (2.7KB) - Visual comparisons
-✅ **MOBILE_FIX.md** (1.5KB) - v1.1 mobile fix details
-✅ **UPDATE_GUIDE.md** (524B) - How to update
-✅ **START_HERE.md** (1.5KB) - Getting started
-✅ **GITHUB_UPLOAD.md** (820B) - GitHub deployment
-✅ **LICENSE** (1.1KB) - MIT License
+  .collection-grid-header h2.size-large {
+    font-size: 48px;
+    margin: 0 0 15px 0;
+  }
 
-**Total Size:** ~30KB
+  .collection-grid-header h2 {
+    font-weight: 700;
+    line-height: 1.2;
+    color: #000;
+  }
 
----
+  .collection-grid-header p {
+    font-size: 18px;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 800px;
+  }
 
-## 🎯 Key Features
+  .collection-grid-header.align-center p {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-### Horizontal Scroll:
-- ✅ Swipeable on mobile (finger gestures)
-- ✅ Shows 2 blocks at a time
-- ✅ Smooth scroll snap
-- ✅ Subtle scrollbar indicator
-- ✅ No JavaScript needed!
-- ✅ Just like Adidas, Nike, H&M
+  .collection-grid-header.align-right p {
+    margin-left: auto;
+  }
 
-### How It Works:
-```
-Mobile View:
-[Block 1] [Block 2] → swipe → [Block 3] [Block 4]
-     ━━━━━━━━━━━━━━
-    (horizontal scrollbar)
-```
+  /* Collection Grid Styles */
+  .collection-category-grid {
+    padding: {{ section.settings.top_padding }}px 0 {{ section.settings.bottom_padding }}px;
+  }
 
----
+  .collection-grid-container {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-## 🔧 Technical Implementation
+  .collection-category-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 4/5;
+    text-decoration: none;
+    display: block;
+  }
 
-### Pure CSS Solution:
-```css
-overflow-x: auto;
-scroll-snap-type: x mandatory;
--webkit-overflow-scrolling: touch;
-```
+  .collection-category-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
 
-### Features:
-- Flexbox layout
-- Scroll snap points
-- Touch momentum
-- Custom scrollbar styling
-- 45% block width (shows peek of next block)
+  .collection-category-item:hover img {
+    transform: scale(1.05);
+  }
 
----
+  .collection-category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 30px 20px 20px;
+    color: white;
+  }
 
-## 📱 How to Use
+  .collection-category-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+    text-decoration: none;
+  }
 
-### For New Installations:
-1. Install as normal (see README.md)
-2. The horizontal scroll is **default** for mobile
-3. Can switch to grid in settings if preferred
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .collection-grid-header h2.size-small {
+      font-size: 24px;
+    }
 
-### For Existing Users (v1.x):
-1. Replace `collection-category-grid.liquid` with new version
-2. Horizontal scroll is automatic (default setting)
-3. To use grid instead: Change "Mobile Layout" to "Grid"
+    .collection-grid-header h2.size-medium {
+      font-size: 28px;
+    }
 
----
+    .collection-grid-header h2.size-large {
+      font-size: 36px;
+    }
 
-## 🎬 For Your YouTube Video
+    .collection-grid-header p {
+      font-size: 16px;
+    }
 
-### Video Ideas:
-1. **"v2.0 Update - Horizontal Scroll Feature!"**
-   - Show the new horizontal scroll
-   - Compare with grid layout
-   - Installation guide
-   - Live demo on mobile
+    {% if section.settings.mobile_layout == 'scroll' %}
+      .collection-grid-container {
+        display: flex;
+        grid-template-columns: none;
+        gap: 15px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 20px;
+        max-width: 100%;
+      }
 
-2. **"Make Your Shopify Store Like Adidas!"**
-   - Show Adidas site
-   - Install the section
-   - Enable horizontal scroll
-   - Final comparison
+      .collection-grid-container::-webkit-scrollbar {
+        height: 8px;
+      }
 
-### Key Points to Cover:
-- ✅ What's new in v2.0
-- ✅ Why horizontal scroll is better
-- ✅ How to enable it (super easy!)
-- ✅ Grid vs Scroll comparison
-- ✅ Mobile demo (swipe in action)
+      .collection-grid-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
 
----
+      .collection-grid-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
 
-## 📊 Comparison
+      .collection-grid-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
 
-| Feature | v1.1 | v2.0 |
-|---------|------|------|
-| Mobile Layout | Grid only | Grid OR Scroll |
-| Horizontal Scroll | ❌ | ✅ |
-| Like Adidas? | ❌ | ✅ |
-| JavaScript | None | None |
-| Settings | 1 (columns) | 2 (layout + columns) |
+      .collection-category-item {
+        min-width: 280px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+      }
+    {% else %}
+      .collection-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+    {% endif %}
+  }
+</style>
 
----
+{% if section.settings.show_heading %}
+<div class="collection-grid-header align-{{ section.settings.heading_alignment }}">
+  {% if section.settings.heading_text != blank %}
+    <h2 class="size-{{ section.settings.heading_size }}">{{ section.settings.heading_text }}</h2>
+  {% endif %}
+  {% if section.settings.subtext != blank %}
+    <p>{{ section.settings.subtext }}</p>
+  {% endif %}
+</div>
+{% endif %}
 
-## 🚀 What to Do Next
+<div class="collection-category-grid">
+  <div class="collection-grid-container">
+    
+    {% for i in (1..6) %}
+      {% case i %}
+        {% when 1 %}
+          {% assign image = section.settings.category_1_image %}
+          {% assign heading = section.settings.category_1_heading %}
+          {% assign link = section.settings.category_1_link %}
+        {% when 2 %}
+          {% assign image = section.settings.category_2_image %}
+          {% assign heading = section.settings.category_2_heading %}
+          {% assign link = section.settings.category_2_link %}
+        {% when 3 %}
+          {% assign image = section.settings.category_3_image %}
+          {% assign heading = section.settings.category_3_heading %}
+          {% assign link = section.settings.category_3_link %}
+        {% when 4 %}
+          {% assign image = section.settings.category_4_image %}
+          {% assign heading = section.settings.category_4_heading %}
+          {% assign link = section.settings.category_4_link %}
+        {% when 5 %}
+          {% assign image = section.settings.category_5_image %}
+          {% assign heading = section.settings.category_5_heading %}
+          {% assign link = section.settings.category_5_link %}
+        {% when 6 %}
+          {% assign image = section.settings.category_6_image %}
+          {% assign heading = section.settings.category_6_heading %}
+          {% assign link = section.settings.category_6_link %}
+      {% endcase %}
+      
+      {% if image != blank %}
+        <a href="{{ link }}" class="collection-category-item">
+          <img 
+            src="{{ image | image_url: width: 600 }}" 
+            alt="{{ heading | default: 'Collection' }}"
+            loading="lazy"
+          >
+          {% if heading != blank %}
+            <div class="collection-category-overlay">
+              <h3 class="collection-category-title">{{ heading }}</h3>
+            </div>
+          {% endif %}
+        </a>
+      {% endif %}
+    {% endfor %}
+    
+  </div>
+</div>
 
-### 1. Test It:
-- Install on a dev/test store
-- Add 4-6 category blocks
-- Test on mobile (real phone or DevTools)
-- Try both layout options
-
-### 2. Update GitHub:
-- Replace files in your repo
-- Create new release: v2.0.0
-- Update repository description
-- Add release notes
-
-### 3. Update YouTube:
-- Add comment about v2.0 on existing video
-- Create v2.0 update video
-- Link to GitHub in description
-
-### 4. Promote:
-- Tweet about the update
-- Post in Shopify communities
-- Share on LinkedIn
-- Reddit: r/shopify
-
----
-
-## 🎁 Bonus Features
-
-The horizontal scroll includes:
-- ✅ Smooth momentum scrolling
-- ✅ Snap to blocks automatically
-- ✅ Touch-optimized for mobile
-- ✅ Shows "peek" of next block
-- ✅ Styled scrollbar
-- ✅ Works on all devices
-- ✅ No performance impact
-
----
-
-## 💡 Future Enhancements
-
-Want to add more? Consider:
-- Scroll dots indicator
-- Previous/Next arrows
-- Auto-play carousel
-- Fade edges effect
-- Different block widths
-
-These could be v2.1 or v3.0 features!
-
----
-
-## ✅ Quality Checklist
-
-Before deploying:
-- [x] Code tested on mobile
-- [x] Works on iOS Safari
-- [x] Works on Android Chrome
-- [x] Desktop still works (grid)
-- [x] Backwards compatible
-- [x] Documentation complete
-- [x] Examples provided
-- [x] No JavaScript errors
-- [x] Performance optimized
-- [x] Ready for production ✨
-
----
-
-## 🌟 Success Metrics
-
-This update could:
-- 📈 Increase GitHub stars
-- 📈 More video views
-- 📈 Better user engagement
-- 📈 Happier merchants
-- 📈 More installations
-
-Why? Because you're solving a real problem that people have been asking for!
-
----
-
-## 📞 Support
-
-Questions about v2.0?
-- 📖 Read: HORIZONTAL_SCROLL.md
-- 🚀 Quick start: V2_QUICKSTART.md
-- 📝 Full guide: README.md
-- 🐛 Issues: GitHub issues
-
----
-
-## 🎊 Congratulations!
-
-You've successfully implemented a professional horizontal scroll feature!
-
-**This is a major update** that puts your section on par with the biggest e-commerce brands.
-
-Now go update GitHub and create that v2.0 video! 🎬
-
----
-
-**Version:** 2.0.0  
-**Release Date:** October 20, 2025  
-**Status:** ✅ Production Ready  
-**Breaking Changes:** None (fully backwards compatible)  
-**New Features:** Horizontal Scroll Layout  
-**Documentation:** Complete  
-**Testing:** Passed  
-**Ready to Deploy:** YES! 🚀
-
----
-
-Good luck! May your repository get lots of stars! ⭐⭐⭐
+{% schema %}
+{
+  "name": "Collection Category Grid",
+  "tag": "section",
+  "class": "collection-grid-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show section heading",
+      "default": false,
+      "info": "Display an optional heading above the collection grid"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading",
+      "default": "Shop by Collection",
+      "info": "Main heading text"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Discover our curated collections",
+      "info": "Optional description below heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Number of columns on desktop",
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile Layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid (2 columns)"
+        },
+        {
+          "value": "scroll",
+          "label": "Horizontal Scroll"
+        }
+      ],
+      "default": "scroll",
+      "info": "Choose how categories display on mobile devices"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Category 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_1_heading",
+      "label": "Heading",
+      "default": "Category 1"
+    },
+    {
+      "type": "url",
+      "id": "category_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_2_heading",
+      "label": "Heading",
+      "default": "Category 2"
+    },
+    {
+      "type": "url",
+      "id": "category_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_3_heading",
+      "label": "Heading",
+      "default": "Category 3"
+    },
+    {
+      "type": "url",
+      "id": "category_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_4_heading",
+      "label": "Heading",
+      "default": "Category 4"
+    },
+    {
+      "type": "url",
+      "id": "category_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_5_heading",
+      "label": "Heading",
+      "default": "Category 5"
+    },
+    {
+      "type": "url",
+      "id": "category_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Category 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "category_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "category_6_heading",
+      "label": "Heading",
+      "default": "Category 6"
+    },
+    {
+      "type": "url",
+      "id": "category_6_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Category Grid",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
